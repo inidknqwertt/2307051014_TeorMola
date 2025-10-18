@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dashboard_page.dart';
 
+/// Halaman utama login aplikasi CafféLux.
+/// Menggunakan konsep tampilan elegan dengan warna netral dan grid layout tengah.
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -9,14 +11,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Controller untuk menangani input teks username dan password
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  /// Fungsi untuk memvalidasi input dan berpindah ke halaman Dashboard
   void _login() {
     String username = _usernameController.text.trim();
     String password = _passwordController.text.trim();
 
-//validasi input 
+    // 🔹 Validasi input sederhana
     if (username.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Isi username dan password terlebih dahulu.")),
@@ -24,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-//navigasi ke halaman dashboard
+    // 🔹 Navigasi ke halaman Dashboard
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => DashboardPage(username: username)),
@@ -34,7 +38,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5EFE6), // ☕ Cream solid background
+      // 🔸 Warna latar belakang utama (cream lembut)
+      backgroundColor: const Color(0xFFF5EFE6),
+
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -42,13 +48,16 @@ class _LoginPageState extends State<LoginPage> {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 400), // 🔲 Grid center max width
+                  // 🔹 Membatasi lebar maksimal agar tetap proporsional di layar besar
+                  constraints: const BoxConstraints(maxWidth: 400),
+
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Logo + Branding
+                      // ====================== LOGO & BRANDING ======================
                       Column(
                         children: [
+                          // Logo aplikasi dari assets
                           Image.asset(
                             "assets/images/flutter_logoo.png",
                             width: 100,
@@ -56,6 +65,8 @@ class _LoginPageState extends State<LoginPage> {
                             fit: BoxFit.contain,
                           ),
                           const SizedBox(height: 16),
+
+                          // Nama brand aplikasi
                           const Text(
                             "CafféLux",
                             style: TextStyle(
@@ -69,14 +80,17 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
 
-                      // Form login card (grid style center)
+                      // ====================== CARD FORM LOGIN ======================
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 28, vertical: 32),
+                          horizontal: 28,
+                          vertical: 32,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
+                            // 🔹 Bayangan lembut agar tampilan tampak elegan
                             BoxShadow(
                               color: Colors.brown.withOpacity(0.15),
                               blurRadius: 10,
@@ -87,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+                            // Judul kecil di bagian atas card
                             const Text(
                               "Masuk ke akunmu",
                               style: TextStyle(
@@ -98,13 +113,15 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             const SizedBox(height: 30),
 
-                            // Username
+                            // ====================== INPUT USERNAME ======================
                             TextField(
                               controller: _usernameController,
                               decoration: InputDecoration(
                                 labelText: "Username",
-                                prefixIcon: const Icon(Icons.person_outline,
-                                    color: Color(0xFF3B2E2A)),
+                                prefixIcon: const Icon(
+                                  Icons.person_outline,
+                                  color: Color(0xFF3B2E2A),
+                                ),
                                 filled: true,
                                 fillColor: const Color(0xFFFDFCFB),
                                 border: OutlineInputBorder(
@@ -112,19 +129,23 @@ class _LoginPageState extends State<LoginPage> {
                                   borderSide: BorderSide.none,
                                 ),
                                 contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 16),
+                                  horizontal: 20,
+                                  vertical: 16,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 20),
 
-                            // Password
+                            // ====================== INPUT PASSWORD ======================
                             TextField(
                               controller: _passwordController,
-                              obscureText: true,
+                              obscureText: true, // Menyembunyikan teks password
                               decoration: InputDecoration(
                                 labelText: "Password",
-                                prefixIcon: const Icon(Icons.lock_outline,
-                                    color: Color(0xFF3B2E2A)),
+                                prefixIcon: const Icon(
+                                  Icons.lock_outline,
+                                  color: Color(0xFF3B2E2A),
+                                ),
                                 filled: true,
                                 fillColor: const Color(0xFFFDFCFB),
                                 border: OutlineInputBorder(
@@ -132,18 +153,20 @@ class _LoginPageState extends State<LoginPage> {
                                   borderSide: BorderSide.none,
                                 ),
                                 contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 16),
+                                  horizontal: 20,
+                                  vertical: 16,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 30),
 
-                            // Tombol Login
+                            // ====================== TOMBOL LOGIN ======================
                             SizedBox(
                               height: 50,
                               child: ElevatedButton(
                                 onPressed: _login,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF3B2E2A),
+                                  backgroundColor: const Color(0xFF3B2E2A), // Espresso brown
                                   foregroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
@@ -165,6 +188,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       const SizedBox(height: 40),
 
+                      // ====================== FOOTER QUOTE ======================
                       const Text(
                         "Nikmati hari dengan secangkir kopi ☕",
                         style: TextStyle(
